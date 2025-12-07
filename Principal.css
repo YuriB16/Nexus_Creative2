@@ -1,0 +1,916 @@
+/* ========================================= */
+/* VARIÁVEIS DE TEMA                         */
+/* ========================================= */
+
+:root {
+    /* Tema Padrão: ESCURO */
+    --accent: #00AAD9;
+    --bg: #111;
+    --header-bg: #000;
+    --card: #181818; /* Card agora tem um fundo levemente diferente do body */
+    --text: #ffffff;
+    --muted: #cfcfcf;
+
+    --border-card: rgba(255, 255, 255, 0.1);
+    --border-cat: rgba(0, 170, 217, 0.12);
+    --shadow-card: rgba(0, 0, 0, 0.5);
+    --shadow-menu: rgba(0, 0, 0, 0.8);
+}
+
+/* Tema CLARO */
+body.light {
+    --accent: #0077b6; 
+    --bg: #f2f2f2;
+    --header-bg: #ffffff;
+    --card: #ffffff;
+    --text: #0a0a0a; 
+    --muted: #333; 
+
+    --border-card: rgba(0, 0, 0, 0.15);
+    --border-cat: rgba(0, 119, 182, 0.25);
+    --shadow-card: rgba(0, 0, 0, 0.12);
+    --shadow-menu: rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================= */
+/* ANIMAÇÕES                                 */
+/* ========================================= */
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-80px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* ========================================= */
+/* GERAL                                     */
+/* ========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* ========================================= */
+/* CABEÇALHO                                 */
+/* ========================================= */
+
+header {
+    background-color: var(--header-bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    animation: slideDown 1s ease-out;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+header img {
+    width: 200px;
+    height: 150px;
+    transition: opacity 0.35s ease;
+}
+
+/* Troca de logo no tema claro */
+body.light header img {
+    content: url("Logo/Logo Nexus Criativo em Ciano.png");
+}
+
+/* Navegação Desktop */
+.nav-desktop ul {
+    list-style: none;
+    display: flex;
+    font-size: 19px;
+}
+
+.nav-desktop ul li {
+    margin-right: 20px;
+}
+
+.nav-desktop ul li a {
+    text-decoration: none;
+    color: var(--text);
+    position: relative;
+    padding-bottom: 5px; 
+    transition: color 0.3s ease;
+}
+
+.nav-desktop ul li a:hover,
+.nav-desktop ul li a.active {
+    color: var(--accent);
+}
+
+.nav-desktop ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background-color: var(--accent);
+    transition: width .3s;
+}
+
+.nav-desktop ul li a:hover::after,
+.nav-desktop ul li a.active::after {
+    width: 100%;
+}
+
+/* Estilo do menu no tema claro */
+body.light .nav-desktop ul li a {
+    color: #0077b6;
+}
+
+body.light .nav-desktop ul li a:hover,
+body.light .nav-desktop ul li a.active {
+    color: #0077b6; 
+}
+
+body.light .nav-desktop ul li a::after {
+    background-color: #00AAD9; 
+}
+
+/* Agrupamento das ações de login/cadastro e tema */
+.header-acoes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Adicione esta regra ao seu arquivo CSS principal */
+
+.btn-curtir {
+    background-color: #f0f0f0;
+    color: var(--text);
+    border: 1px solid #ccc;
+    transition: all 0.2s ease;
+}
+
+/* Estilo para quando o botão estiver "Curtido" */
+.btn-curtir.curtido {
+    background-color: #ff3b3b; /* Cor de coração */
+    color: white;
+    border-color: #cc0000;
+    font-weight: bold;
+}
+
+/* ========================================= */
+/* BOTÕES HEADER (Entrar / Cadastre-se)      */
+/* ========================================= */
+
+.Entrar, .Cadastro {
+    border: 1px var(--accent) solid;
+    border-radius: 20px;
+    width: 120px;
+    text-align: center;
+    height: 40px;
+    font-size: 17px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+}
+
+.Entrar a, .Cadastro a {
+    text-decoration: none;
+    display: block; 
+    line-height: 40px;
+    color: white; /* Base para o Cadastro e Entrar no dark */
+}
+
+/* Estilo Específico - Entrar (Dark) */
+.Entrar a {
+    color: var(--accent); /* Texto em accent no tema escuro */
+}
+.Entrar:hover {
+    background-color: var(--accent);
+}
+.Entrar:hover a {
+    color: white; 
+}
+
+/* Estilo Específico - Cadastro (Dark) */
+.Cadastro {
+    background-color: var(--accent);
+}
+.Cadastro:hover {
+    background-color: var(--card); /* Inverte para o fundo do card */
+}
+.Cadastro:hover a {
+    color: var(--accent);
+}
+
+/* Efeito de Hover/Ativo Comum */
+.Entrar:hover, .Cadastro:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 170, 217, 0.4);
+}
+
+
+/* Estilos para o Tema Claro - Botões */
+body.light .Entrar {
+    border-color: #00AAD9;
+}
+body.light .Entrar a {
+    color: #00AAD9;
+}
+body.light .Entrar:hover {
+    background-color: #00AAD9;
+}
+body.light .Entrar a:hover {
+    color: white;
+}
+
+body.light .Cadastro {
+    background-color: #00AAD9;
+    border-color: #00AAD9;
+}
+body.light .Cadastro a {
+    color: white;
+}
+body.light .Cadastro:hover {
+    background-color: var(--card);
+}
+body.light .Cadastro:hover a {
+    color: #00AAD9;
+}
+
+
+/* ========================================= */
+/* BOTÃO MODO CLARO / ESCURO                 */
+/* ========================================= */
+
+#toggle-tema {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .3s ease;
+    flex-shrink: 0; 
+}
+
+#toggle-tema:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+}
+
+body.light #toggle-tema {
+    background: #00AAD9;
+}
+
+/* ========================================= */
+/* CATEGORIAS                                */
+/* ========================================= */
+
+.categorias {
+    position: sticky;
+    top: 120px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 12px 0;
+    z-index: 999;
+}
+
+body.light .categorias {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.categorias ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 12px;
+}
+
+.categorias li {
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border-cat);
+    transition: .22s;
+}
+
+.categorias li:hover,
+.categorias li.ativo {
+    background: var(--accent);
+    color: white;
+}
+
+/* Categorias no tema claro */
+body.light .categorias li {
+    background-color: #ffffff;
+    color: #0a0a0a;
+    border-color: rgba(0, 119, 182, 0.35);
+    font-weight: 600;
+}
+
+body.light .categorias li:hover,
+body.light .categorias li.ativo {
+    background-color: #00AAD9;
+    color: white;
+}
+
+
+/* ========================================= */
+/* CARDS (NOVO E MELHORADO)                  */
+/* ========================================= */
+
+.feed {
+    width: 100%;
+    max-width: 1300px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(430px, 1fr)); 
+    gap: 30px; /* Aumenta o espaçamento */
+    padding: 0 20px;
+}
+
+.card-propaganda {
+    background: var(--card);
+    border: 1px solid var(--border-card);
+    border-radius: 18px; /* Borda mais suave */
+    overflow: hidden;
+    box-shadow: 0 10px 25px var(--shadow-card); /* Sombra mais destacada */
+    animation: fadeUp .4s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-propaganda:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px var(--shadow-card);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.card-header img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Torna o logo circular */
+    object-fit: cover;
+    border: 2px solid var(--accent); /* Adiciona um destaque ao logo */
+}
+
+.card-img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+}
+
+.descricao {
+    padding: 15px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Cards no tema claro */
+body.light .card-propaganda {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+body.light .descricao {
+    color: #555;
+}
+
+
+/* ========================================= */
+/* AÇÕES DO CARD                             */
+/* ========================================= */
+
+.acoes {
+    display: flex;
+    justify-content: space-around; /* Distribui os botões uniformemente */
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--border-card);
+    list-style: none;
+}
+
+.acoes button {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 8px;
+    border: 2px solid var(--accent); /* Borda mais grossa */
+    background: transparent;
+    cursor: pointer;
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: bold;
+    transition: .25s;
+    /* Garante que o texto seja centralizado mesmo após a remoção dos emojis nos botões com texto */
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.acoes button:hover {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.02);
+}
+
+.acoes .btn-curtir.curtido {
+    color: white;
+    background-color: #ff4d4d; /* Cor vermelha para curtido */
+    border-color: #ff4d4d;
+}
+
+/* ========================================= */
+/* MENU HAMBURGUER (MOBILE)                  */
+/* ========================================= */
+
+/* Botão Hamburguer no Header (Visível apenas no mobile) */
+#toggle-menu {
+    display: none; /* Escondido por padrão (Desktop-first) */
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 30px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+/* Container do Menu Mobile (Off-Canvas) */
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 75%; /* Ocupa 3/4 da tela */
+    max-width: 300px;
+    height: 100%;
+    background: var(--header-bg);
+    box-shadow: -4px 0 15px var(--shadow-menu);
+    z-index: 2000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%); /* Esconde fora da tela */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Estado Ativo/Aberto do Menu Mobile */
+#mobile-menu.active {
+    transform: translateX(0);
+}
+
+#mobile-menu nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+#mobile-menu nav ul li a {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-card);
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+#mobile-menu nav ul li a:hover {
+    color: var(--accent);
+}
+
+/* Botões Entrar/Cadastre-se no Menu Mobile */
+.mobile-botoes {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mobile-entrar, .mobile-cadastro {
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 1.1em;
+}
+
+.mobile-entrar a, .mobile-cadastro a {
+    line-height: 50px;
+}
+
+#mobile-menu {
+    /* ... código anterior ... */
+    transform: translateX(100%); /* Esconde o menu para a direita */
+    visibility: hidden; /* Garante que não é acessível fora da tela */
+    transition: transform 0.3s ease, visibility 0.3s ease;
+}
+
+#mobile-menu.active {
+    transform: translateX(0); /* Traz o menu para a tela */
+    visibility: visible;
+}
+
+/* ========================================= */
+/* SEM RESULTADOS                            */
+/* ========================================= */
+
+.sem-resultados {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    color: var(--muted);
+    grid-column: 1 / -1; 
+}
+
+/* ========================================= */
+/* FOOTER                                    */
+/* ========================================= */
+
+footer {
+    background-color: #00AAD9;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in;
+    margin-top: 50px;
+}
+
+footer img {
+    width: 150px; 
+    height: 120px;
+}
+
+footer p {
+    margin-top: 10px;
+    font-size: 18px; 
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+/* ========================================= */
+/* MEDIA QUERIES (RESPONSIVIDADE)            */
+/* ========================================= */
+
+/* ----------------------------------------- */
+/* 1. TELAS PEQUENAS (até 600px - Mobile)    */
+/* ----------------------------------------- */
+
+@media (max-width: 600px) {
+    /* Exibe o botão hamburguer */
+    #toggle-menu {
+        display: block; 
+    }
+    
+    /* Oculta navegação e botões desktop */
+    .nav-desktop,
+    .desktop-acoes {
+        display: none !important;
+    }
+    
+    header {
+        padding: 10px 15px;
+        justify-content: space-between;
+    }
+
+    header img {
+        width: 120px;
+        height: auto;
+    }
+
+    #toggle-tema {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    /* Categorias (Horizontal Scroll) */
+    .categorias {
+        top: 60px; /* Ajusta o sticky para a altura do novo header mobile */
+    }
+    .categorias ul {
+        justify-content: flex-start; 
+        overflow-x: auto; 
+        padding: 0 15px;
+        flex-wrap: nowrap; 
+        scrollbar-width: none; 
+    }
+    .categorias ul::-webkit-scrollbar {
+        display: none;
+    }
+    .categorias li {
+        flex-shrink: 0; /* Impede que os itens encolham */
+    }
+
+    /* FEED (Coluna Única) */
+    .feed {
+        grid-template-columns: 1fr; 
+        padding: 0 10px;
+        margin-top: 20px;
+        gap: 20px;
+    }
+    
+    .card-header img {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .card-img {
+        height: 180px; /* Reduz a altura das imagens */
+    }
+    .descricao {
+        font-size: 0.9em;
+    }
+
+    /* Ações do Card (reduz espaçamento e tamanho do texto) */
+    .acoes {
+        gap: 5px;
+        padding: 8px 12px;
+    }
+    .acoes button {
+        font-size: 0.85em;
+        padding: 8px 0;
+    }
+
+    /* FOOTER */
+    footer {
+        flex-direction: column;
+        padding: 15px 10px;
+    }
+
+    footer img {
+        width: 100px;
+        height: auto;
+    }
+    
+    footer p {
+        font-size: 14px;
+    }
+}
+
+
+/* ----------------------------------------- */
+/* 2. TELAS MÉDIAS (601px a 1200px - Tablet/Laptop) */
+/* ----------------------------------------- */
+@media (min-width: 601px) and (max-width: 1200px) {
+    header img {
+        margin-right: 50px; 
+        width: 150px;
+        height: auto;
+    }
+
+    header {
+        padding: 10px 15px;
+    }
+    
+    /* Garante que o menu hamburguer não apareça no tablet */
+    #toggle-menu {
+        display: none;
+    }
+
+    .nav-desktop ul {
+        font-size: 17px;
+    }
+    .nav-desktop ul li {
+        margin-right: 15px;
+    }
+
+    .feed {
+        max-width: 1000px;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+    
+    /* Categorias */
+    .categorias {
+        top: 80px;
+    }
+}
+
+/* ========================================= */
+/* MEDIA QUERIES (Responsividade)             */
+/* ========================================= */
+
+@media (max-width: 1100px) {
+    /* Ajuste para telas médias (ex: tablets) */
+    .feed {
+        /* Muda de 430px (2 colunas) para 350px (3 colunas com menos espaço) */
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+    }
+}
+
+@media (max-width: 600px) {
+    /* Ajustes para dispositivos móveis */
+
+    header {
+        padding: 8px 15px;
+    }
+    
+    /* Oculta a navegação e ações desktop */
+    .nav-desktop, .desktop-acoes {
+        display: none;
+    }
+
+    /* Mostra o botão do menu hamburguer */
+    #toggle-menu {
+        display: block;
+    }
+
+    header img {
+        width: 150px; /* Reduz o logo */
+        height: auto;
+    }
+
+    /* Ajuste do feed para mobile: Apenas uma coluna */
+    .feed {
+        margin: 20px auto;
+        grid-template-columns: 1fr; 
+        padding: 0 15px;
+    }
+
+    /* Reduz o tamanho da fonte e padding das categorias */
+    .categorias ul {
+        justify-content: flex-start;
+        padding: 0 15px;
+        flex-wrap: nowrap;
+        overflow-x: auto; /* Permite rolar categorias horizontalmente */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .categorias li {
+        font-size: 14px;
+        flex-shrink: 0; /* Impede que os itens encolham */
+    }
+
+    /* Esconde os botões do mobile menu (para evitar duplicação visual no header) */
+    .mobile-botoes {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Novo Contêiner que agrupa o Link e as Ações */
+.card-propaganda-wrapper {
+    /* Mantenha os estilos principais que existiam no antigo .card-propaganda */
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 25px; /* Espaçamento entre os cards */
+    display: flex; /* Para organizar o link e o menu */
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Adiciona margem inferior se o seu feed for grid/flex */
+}
+
+/* Efeito de hover que estava no card */
+.card-propaganda-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+body.light .card-propaganda-wrapper {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.light .card-propaganda-wrapper:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* O Link que agora representa a maior parte do Card */
+.card-propaganda-link {
+    display: block; /* Ocupa todo o espaço disponível */
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: var(--text); /* Garante que o texto dentro do link use a cor padrão */
+    padding: 15px; /* Mantenha o padding interno do conteúdo */
+    /* Remove a sombra e o transform do hover daqui, pois movemos para o wrapper */
+    transition: none;
+    cursor: pointer;
+}
+
+/* O conteúdo interno deve ser restaurado */
+.card-conteudo {
+    /* Garante que o conteúdo interno ocupe o espaço */
+    width: 100%; 
+}
+
+/* Garante que a imagem principal não tenha problemas de layout */
+.card-img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* Garante que o menu de ações esteja no final do wrapper */
+.card-propaganda-wrapper .acoes {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px; /* Adiciona padding para alinhar com o conteúdo */
+    border-top: 1px solid var(--input-border); /* Linha divisória sutil */
+    margin: 0;
+}
+
+/* Evita que os botões de ação se estiquem demais */
+.card-propaganda-wrapper .acoes button {
+    flex-grow: 1;
+    margin: 0 5px;
+    font-size: 15px;
+    padding: 8px 10px;
+}
+
+/* Garante que o último botão do menu (Acessar, que foi removido no JS) não tenha margem desnecessária */
+.card-propaganda-wrapper .acoes button:last-child {
+    margin-right: 0;
+}
+
+/* No seu Principal.css e Propagandas.css, verifique estas regras: */
+
+/* Container geral no desktop */
+header .header-acoes {
+    display: flex;
+    align-items: center; /* Alinha verticalmente todos os itens (auth, tema, menu) */
+    gap: 15px; /* Espaço entre os elementos */
+}
+
+/* Novo contêiner para Entrar/Cadastro/Sair */
+.auth-actions {
+    display: flex;
+    /* Adiciona o espaço entre o botão de entrar e o de cadastro (se houver) */
+    gap: 10px; 
+}
+
+/* Estilo dos links dentro de .auth-actions */
+.auth-actions a {
+    /* Mantenha o estilo dos links do header */
+    padding: 8px 15px; 
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: -10px;
+    text-decoration: none;
+    white-space: nowrap; /* Impede quebras de linha */
+}
+
+/* Estilo específico para o botão de Entrar/Sair */
+.auth-actions .Entrar a, 
+.auth-actions .Cadastro a {
+
+}

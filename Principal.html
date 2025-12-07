@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Principal - Nexus Creative</title>
+    <link rel="stylesheet" href="Principal.css" />
+    <link rel="shortcut icon" href="Logo/Nexus Creative.png" type="image/x-icon" />
+</head>
+
+<body>
+<header>
+    <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Logo Nexus Creative" width="200" height="150">
+
+    <nav class="nav-desktop" aria-label="Navegação Principal">
+        <ul>
+            <li><a href="Index.html">Início</a></li>
+            <li><a href="Equipe.html">Equipe</a></li>
+            <li><a href="divulgue.html">Divulgue</a></li>
+            <li><a href="Principal.html" class="active">Página Principal</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-acoes">
+       <div class="auth-actions desktop-acoes">
+        </div>
+        
+        <button id="toggle-tema" aria-label="Alternar Tema">🌙</button>
+
+        <button id="toggle-menu" aria-label="Abrir Menu">☰</button>
+    </div>
+</header>
+
+<div id="mobile-menu">
+    <nav aria-label="Navegação Secundária">
+        <ul>
+            <li><a href="Index.html">Início</a></li>
+            <li><a href="Equipe.html">Equipe</a></li>
+            <li><a href="divulgue.html">Divulgue</a></li>
+            <li><a href="Principal.html">Página Principal</a></li>
+        </ul>
+    </nav>
+    <div class="mobile-botoes">
+         <div class="Entrar mobile-entrar">
+            <a href="Entrar.html">Entrar</a>
+        </div>
+        <div class="Cadastro mobile-cadastro">
+            <a href="Cadastro.html">Cadastre-se</a>
+        </div>
+    </div>
+</div>
+
+<nav class="categorias" aria-label="Categorias de Propagandas">
+    <ul id="lista-categorias">
+        <li class="ativo" data-cat="todas">🔎 Todas</li>
+        <li data-cat="alimentacao">🍔 Alimentação</li>
+        <li data-cat="moda">👟 Moda</li>
+        <li data-cat="tecnologia">📱 Tecnologia</li>
+        <li data-cat="bebidas">☕ Bebidas</li>
+        <li data-cat="servicos">🏠 Serviços</li>
+        <li data-cat="beleza">💄 Beleza</li>
+        <li data-cat="entretenimento">🎮 Entretenimento</li>
+        <li data-cat="saude">🩺 Saúde</li>
+        <li data-cat="automotivo">🚗 Automotivo</li>
+    </ul>
+</nav>
+
+<main class="feed" id="feed">
+
+  
+
+</main>
+
+<footer>
+    <div class="footer-contato">
+        <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Nexus Creative" width="250" height="200">
+    </div>
+
+    <p>&copy; 2025 NexusCreative - Todos os direitos Reservados</p>
+</footer>
+
+<script>
+// ------------------------------------
+    // SCRIPT DE TEMA (Original Corrigido)
+    // ------------------------------------
+    const botaoTema = document.getElementById("toggle-tema");
+    
+    // Verifica o tema ao carregar
+    if (localStorage.getItem("tema") === "light") {
+        document.body.classList.add("light");
+        botaoTema.textContent = "☀️";
+    } else {
+        // Garante que o ícone escuro esteja correto se não houver tema ou for 'dark'
+        botaoTema.textContent = "🌙"; 
+    }
+    
+    botaoTema.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        if (document.body.classList.contains("light")) {
+            botaoTema.textContent = "☀️";
+            localStorage.setItem("tema", "light");
+        } else {
+            botaoTema.textContent = "🌙";
+            localStorage.setItem("tema", "dark");
+        }
+    });
+
+ // ------------------------------------
+    // NOVO: SCRIPT MENU HAMBURGUER (Corrigido)
+    // ------------------------------------
+    const botaoMenu = document.getElementById("toggle-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    botaoMenu.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+        
+        // Altera o ícone do hamburguer para 'X' ao abrir/fechar
+        if (mobileMenu.classList.contains("active")) {
+            botaoMenu.textContent = "✕"; 
+            // Opcional: Ocultar o botão de tema no mobile quando o menu está aberto
+            botaoTema.style.visibility = 'hidden'; 
+
+        } else {
+            botaoMenu.textContent = "☰";
+            botaoTema.style.visibility = 'visible';
+        }
+    });
+
+    // Ajusta a visibilidade dos elementos ao redimensionar (apenas para corrigir se o menu estava aberto)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 600) {
+            mobileMenu.classList.remove('active');
+            botaoMenu.textContent = '☰';
+            botaoTema.style.visibility = 'visible'; // Garante que o tema volte a ser visível no desktop
+        }
+    });
+
+    // Ajusta visibilidade do botão hamburguer ao redimensionar
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 600) {
+            mobileMenu.classList.remove('active');
+            botaoMenu.textContent = '☰';
+            botaoMenu.style.display = 'none';
+            desktopNav.style.display = 'flex';
+            desktopAcoes.forEach(el => el.style.display = 'flex');
+            botaoTema.style.display = 'flex';
+        } else {
+            botaoMenu.style.display = 'block';
+            desktopNav.style.display = 'none';
+            desktopAcoes.forEach(el => el.style.display = 'none');
+        }
+    });
+
+    // Força a ocultação inicial dos elementos de mobile no desktop
+    if (window.innerWidth > 600) {
+        botaoMenu.style.display = 'none';
+    }
+
+
+    // ------------------------------------
+    // SCRIPT DE FILTRO DE CATEGORIAS (Original)
+    // ------------------------------------
+    const categorias = document.querySelectorAll(".categorias li");
+    const cards = document.querySelectorAll(".card-propaganda");
+    const feed = document.getElementById("feed");
+
+    // Função para filtrar
+    categorias.forEach(cat => {
+        cat.addEventListener("click", () => {
+
+            // Remove classe ativa
+            categorias.forEach(c => c.classList.remove("ativo"));
+            cat.classList.add("ativo");
+
+            const categoriaSelecionada = cat.getAttribute("data-cat");
+            let algumVisivel = false;
+
+            cards.forEach(card => {
+                const categoriaCard = card.getAttribute("data-categoria");
+
+                // Verifica se deve mostrar
+                if (categoriaSelecionada === "todas" || categoriaCard === categoriaSelecionada) {
+                    card.style.display = "block";
+                    card.style.animation = "fadeUp .45s ease-out";
+                    algumVisivel = true;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            // Remove mensagem antiga
+            const mensagemExistente = document.querySelector(".sem-resultados");
+            if (mensagemExistente) mensagemExistente.remove();
+
+            // Nenhum card encontrado
+            if (!algumVisivel) {
+                const msg = document.createElement("div");
+                msg.classList.add("sem-resultados");
+                msg.textContent = "Nenhuma propaganda encontrada nesta categoria.";
+                feed.appendChild(msg);
+            }
+        });
+    });
+
+    // ------------------------------------
+    // SCRIPT DE AÇÕES (Curtir/Comentar) (Original)
+    // ------------------------------------
+    
+    // Função CURTIR
+    document.querySelectorAll(".acoes .btn-curtir").forEach(btn => {
+        btn.addEventListener("click", () => {
+            // Simplificando o texto dos botões de ação do card (para caber melhor)
+            const curtidoTexto = "❤️ 1";
+            const curtirTexto = "❤️ Curtir";
+
+            if (!btn.classList.contains("curtido")) {
+                btn.classList.add("curtido");
+                btn.innerHTML = curtidoTexto;
+            } else {
+                btn.classList.remove("curtido");
+                btn.innerHTML = curtirTexto;
+            }
+        });
+    });
+
+    // Função COMENTAR
+    document.querySelectorAll(".acoes .btn-comentar").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const comentario = prompt("Digite seu comentário:");
+            if (comentario) {
+                alert("Comentário enviado!");
+            }
+        });
+    });
+</script>
+
+<script src="principal.js"></script>
+
+<script>
+    // Função para atualizar o cabeçalho e os links
+    function updateHeaderAuth() {
+        const authContainer = document.querySelector('.auth-actions');
+        const isLogged = localStorage.getItem('usuarioLogado') === 'true';
+
+        if (authContainer) {
+            if (isLogged) {
+                // Estado LOGADO: Exibe botão Sair
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="#" id="logoutBtn">Sair</a>
+                    </div>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('usuarioLogado');
+                    localStorage.removeItem('usuarioEmail');
+                    window.location.reload(); // Recarrega para atualizar o estado
+                });
+            } else {
+                // Estado DESLOGADO: Exibe Entrar e Cadastre-se
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="Entrar.html">Entrar</a>
+                    </div>
+                    <div class="Cadastro desktop-acoes">
+                        <a href="Cadastro.html">Cadastre-se</a>
+                    </div>
+                `;
+            }
+        }
+        
+        // Trata o link "Divulgue" na navegação
+        const divulgueLink = document.querySelector('.nav-desktop a[href="divulgue.html"]');
+        if (divulgueLink) {
+             // Redireciona para o painel se logado, ou para o login se deslogado
+             divulgueLink.href = isLogged ? 'Propagandas.html' : 'Entrar.html';
+        }
+    }
+    
+    // Chama a função ao carregar a página
+    updateHeaderAuth();
+
+    // ... (Mantenha o restante do seu código JavaScript, como o script de tema e menu)
+</script>
+
+</body>
+</html>

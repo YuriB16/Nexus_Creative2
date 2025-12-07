@@ -1,0 +1,669 @@
+/* ========================================= */
+/* VARIÁVEIS DE TEMA (Padronizadas)          */
+/* ========================================= */
+
+:root {
+    /* Tema Padrão: ESCURO */
+    --accent: #00AAD9;
+    --bg: #111111;
+    --header-bg: #000000;
+    --card: #181818;
+    --text: #ffffff;
+    --muted: #cfcfcf;
+    --shadow-menu: rgba(0, 0, 0, 0.8);
+    --input-bg: #0f0f0f;
+    --input-border: #222;
+    --danger: #FF3B3B;
+    /* Cor para Excluir */
+}
+
+/* Estilo do menu no tema claro */
+body.light .nav-desktop ul li a {
+    color: #0077b6;
+}
+
+body.light .nav-desktop ul li a:hover,
+body.light .nav-desktop ul li a.active {
+    color: #0077b6; 
+}
+
+body.light .nav-desktop ul li a::after {
+    background-color: #00AAD9; 
+}
+
+
+/* Tema CLARO */
+body.light {
+    --accent: #0077b6;
+    --bg: #f5f5f5;
+    --header-bg: #ffffff;
+    --card: #ffffff;
+    --text: #0a0a0a;
+    --muted: #555555;
+    --shadow-menu: rgba(0, 0, 0, 0.3);
+    --input-bg: #ffffff;
+    --input-border: #ddd;
+    --danger: #CC0000;
+}
+
+/* ========================================= */
+/* ANIMAÇÕES & GERAL (Mantidos)             */
+/* ========================================= */
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-80px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+body.light a {
+    color: var(--accent);
+}
+
+
+/* ========================================= */
+/* HEADER, BOTOES, MENU MOBILE (Mantidos)   */
+/* ========================================= */
+
+header {
+    background-color: var(--header-bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideDown 1s ease-out;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 20px;
+}
+
+header img {
+    width: 200px;
+    height: 150px;
+}
+
+body.light header img {
+    content: url("Logo/Logo Nexus Criativo em Ciano.png");
+}
+
+/* Navegação Desktop */
+.nav-desktop ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    font-size: 19px;
+}
+
+.nav-desktop ul li {
+    margin-right: 20px;
+}
+
+.nav-desktop ul li a {
+    color: var(--text);
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-desktop ul li a:hover,
+.nav-desktop ul li a.active {
+    color: var(--accent);
+}
+
+.nav-desktop ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-desktop ul li a:hover::after,
+.nav-desktop ul li a.active::after {
+    width: 100%;
+}
+
+.header-acoes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Botão Sair (Entrar adaptado) */
+.Entrar {
+    border: 1px var(--accent) solid;
+    border-radius: 20px;
+    width: 120px;
+    text-align: center;
+    height: 40px;
+    font-size: 17px;
+    transition: all 0.3s ease;
+}
+
+.Entrar a {
+    display: block;
+    line-height: 40px;
+    color: var(--accent);
+}
+
+.Entrar:hover {
+    background-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 170, 217, 0.4);
+}
+
+.Entrar:hover a {
+    color: white;
+}
+
+body.light .Entrar a {
+    color: var(--accent);
+}
+
+body.light .Entrar:hover a {
+    color: white;
+}
+
+/* Botão Tema */
+#toggle-tema {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .3s ease;
+    flex-shrink: 0;
+}
+
+#toggle-tema:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+}
+
+/* Menu Mobile (Hamburguer) */
+#toggle-menu {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 30px;
+    cursor: pointer;
+    padding: 5px 10px;
+    flex-shrink: 0;
+}
+
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 75%;
+    max-width: 300px;
+    height: 100%;
+    background: var(--header-bg);
+    box-shadow: -4px 0 15px var(--shadow-menu);
+    z-index: 2000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0.3s ease;
+}
+
+#mobile-menu.active {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+#mobile-menu nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#mobile-menu nav ul li a {
+    display: block;
+    padding: 15px 0;
+    text-decoration: none;
+    color: var(--text);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+body.light #mobile-menu nav ul li a {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+
+#mobile-menu nav ul li a:hover {
+    background: rgba(0, 170, 217, 0.1);
+}
+
+body.light #mobile-menu nav ul li a:hover {
+    background: rgba(0, 119, 182, 0.1);
+}
+
+.mobile-botoes {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mobile-botoes .Entrar {
+    width: 100%;
+    margin: 0;
+}
+
+.mobile-botoes .Entrar a {
+    line-height: 40px;
+}
+
+
+/* ========================================= */
+/* ESTILOS ESPECÍFICOS DO PAINEL (Melhorado)*/
+/* ========================================= */
+
+.painel {
+    max-width: 1200px;
+    margin: 200px auto 80px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 30px;
+    align-items: start;
+}
+
+.painel h1 {
+    margin: 0 0 6px;
+    color: var(--accent)
+}
+
+.painel p {
+    margin: 0 0 18px;
+    color: var(--muted)
+}
+
+.titulo-lista {
+    grid-column: 1 / -1;
+    margin-top: 20px;
+    color: var(--accent)
+}
+
+/* --- CARD DE UPLOAD MELHORADO --- */
+.card-upload {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Adiciona espaçamento entre elementos */
+}
+
+body.light .card-upload {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.1);
+}
+
+.card-upload h2 {
+    margin: 0 0 10px;
+    color: var(--accent)
+}
+
+.card-upload label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.card-upload input[type=text],
+.card-upload input[type=url],
+.card-upload select,
+.card-upload textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text);
+    resize: vertical;
+    margin-bottom: 5px;
+}
+
+.card-upload input::placeholder,
+.card-upload textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.6;
+}
+
+/* Estilo para o campo de arquivo (file) */
+.card-upload input[type=file] {
+    margin-bottom: 15px;
+    padding: 5px;
+    color: var(--muted);
+    border: none;
+    background: transparent;
+}
+
+body.light .card-upload input[type=file] {
+    color: var(--text);
+}
+
+
+.card-upload button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--accent);
+    border: none;
+    color: black;
+    /* Cor mais escura para melhor contraste */
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.card-upload button:hover {
+    background: #0090B0;
+}
+
+
+/* --- LISTA DE PROPGANDAS --- */
+.lista-propagandas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.card-ad {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.18s ease;
+}
+
+body.light .card-ad {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.card-ad:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+body.light .card-ad:hover {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.card-ad img {
+    width: 160px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 8px
+}
+
+.card-ad .meta {
+    flex: 1
+}
+
+.card-ad .meta h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    color: var(--accent);
+}
+
+/* Título em destaque */
+.card-ad .meta p {
+    margin: 0 0 4px;
+    font-size: 14px;
+}
+
+.card-ad .meta .ad-link a {
+    color: var(--muted);
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.card-ad .meta .ad-category {
+    color: var(--muted);
+    font-style: italic;
+}
+
+.card-ad .meta .ad-description {
+    color: var(--text);
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+
+.card-ad .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.card-ad button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600
+}
+
+.btn-editar {
+    background: #0090B0;
+    /* Cor mais forte para Edição */
+    color: white;
+    transition: background 0.3s ease;
+}
+
+.btn-editar:hover {
+    background: #007799;
+}
+
+.btn-excluir {
+    background: var(--danger);
+    color: white;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.btn-excluir:hover {
+    background: #B02A2A;
+}
+
+
+/* Empty state */
+.vazio {
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px dashed rgba(255, 255, 255, 0.03);
+    color: var(--muted);
+    text-align: center
+}
+
+body.light .vazio {
+    background: #f0f0f0;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+
+/* ========================================= */
+/* FOOTER (ESTILO COMPARTILHADO)            */
+/* ========================================= */
+footer {
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in;
+}
+
+footer img {
+    margin-right: 50px;
+}
+
+footer p {
+    font-size: 20px;
+    color: white;
+    margin-left: 0;
+}
+
+
+/* ========================================= */
+/* MEDIA QUERIES (Responsividade)            */
+/* ========================================= */
+
+@media (max-width: 1024px) {
+
+    /* Esconde elementos de desktop */
+    .nav-desktop,
+    .desktop-acoes {
+        display: none;
+    }
+
+    #toggle-menu {
+        display: block;
+    }
+
+    header img {
+        width: 150px;
+        height: auto;
+    }
+
+    .painel {
+        grid-template-columns: 1fr;
+        max-width: 920px;
+        padding: 22px;
+        margin-top: 110px;
+    }
+
+    .card-upload {
+        order: -1;
+    }
+
+    /* Coloca o formulário no topo no mobile */
+
+    /* Footer responsivo */
+    footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    footer img {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    footer p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .painel {
+        padding: 16px;
+    }
+
+    .card-ad {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card-ad img {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        margin-bottom: 10px;
+    }
+
+    .card-ad .actions {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        gap: 10px;
+    }
+
+    /* Força os textos de link e categoria a ficarem juntos no mobile */
+    .card-ad .meta p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px 15px;
+    }
+
+    header img {
+        width: 120px;
+    }
+
+    .painel {
+        margin-top: 90px;
+    }
+
+    .card-ad .actions {
+        flex-direction: column;
+    }
+}
+

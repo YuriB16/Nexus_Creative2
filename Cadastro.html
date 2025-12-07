@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Nexus Creative</title>
+    <link rel="stylesheet" href="Cadastro.css">
+    <link rel="shortcut icon" href="Logo/Nexus Creative.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Fundo animado -->
+    <canvas id="particles"></canvas>
+
+    <div class="container">
+        <div class="cadastro-card">
+            <img src="Logo/Nexus Creative.png" alt="Logo Nexus Creative" class="logo">
+            <h2>Crie sua conta</h2>
+            <p>Junte-se à Nexus Creative e explore o mundo das melhores campanhas publicitárias!</p>
+
+            <form id="formCadastro">
+                <div class="input-group">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Crie uma senha" required minlength="6">
+                </div>
+
+                <div class="input-group">
+                    <label for="confirmar">Confirmar senha</label>
+                    <input type="password" id="confirmar" placeholder="Confirme sua senha" required minlength="6">
+                </div>
+
+                <p id="erroSenha" class="erro-msg"></p>
+
+                <button type="submit" class="btn-cadastrar">Cadastrar</button>
+
+                <div class="extra">
+                    <p>Já tem uma conta? <a href="Entrar.html">Entre agora</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alerta de sucesso -->
+    <div id="alertaSucesso" class="alerta-sucesso">
+        <h3>✅ Cadastro concluído!</h3>
+        <p>Bem-vindo à Nexus Creative!</p>
+    </div>
+
+    <script src="particles.js"></script>
+ <script src="particles.js"></script>
+<script>
+    // ===========================================
+    // FUNÇÕES DE GERENCIAMENTO DE USUÁRIOS
+    // ===========================================
+    function getUsers() {
+        const usersJSON = localStorage.getItem('users');
+        return usersJSON ? JSON.parse(usersJSON) : [];
+    }
+
+    function saveUsers(usersArray) {
+        localStorage.setItem('users', JSON.stringify(usersArray));
+    }
+
+    // ===========================================
+    // LÓGICA DO CADASTRO
+    // ===========================================
+    const form = document.getElementById('formCadastro');
+    const emailInput = document.getElementById('email');
+    const senha = document.getElementById('senha');
+    const confirmar = document.getElementById('confirmar');
+    const erroSenha = document.getElementById('erroSenha');
+    const alertaSucesso = document.getElementById('alertaSucesso');
+    
+    // Adiciona um erro específico para e-mail duplicado
+    const erroEmail = document.createElement('p');
+    erroEmail.classList.add('erro-msg');
+    erroEmail.textContent = '⚠️ Este e-mail já está cadastrado!';
+    emailInput.closest('.input-group').appendChild(erroEmail);
+
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        // 1. Limpa erros anteriores
+        erroSenha.style.display = 'none';
+        confirmar.classList.remove('erro');
+        erroEmail.style.display = 'none';
+        emailInput.classList.remove('erro');
+
+
+        // 2. Validação de senha
+        if (senha.value !== confirmar.value) {
+            erroSenha.textContent = '⚠️ As senhas não coincidem!';
+            erroSenha.style.display = 'block';
+            confirmar.classList.add('erro');
+            return;
+        }
+
+        // 3. Validação de e-mail (unicidade)
+        const users = getUsers();
+        const emailVal = emailInput.value.trim();
+        if (users.some(user => user.email === emailVal)) {
+            erroEmail.style.display = 'block';
+            emailInput.classList.add('erro');
+            return;
+        }
+
+        // 4. Cria e salva novo usuário
+        const newUser = {
+            nome: document.getElementById('nome').value.trim(),
+            email: emailVal,
+            senha: senha.value, // Apenas para simulação. Em produção, use hash!
+            id: Date.now().toString()
+        };
+
+        users.push(newUser);
+        saveUsers(users);
+
+        // 5. Login automático
+        localStorage.setItem("usuarioLogado", "true");
+        localStorage.setItem("usuarioEmail", newUser.email);
+
+        // 6. Alerta de sucesso e redirecionamento
+        alertaSucesso.classList.add('ativo');
+
+        setTimeout(() => {
+            alertaSucesso.classList.remove('ativo');
+            form.reset();
+            window.location.href = "Propagandas.html"; // Redireciona para o Painel
+        }, 2500);
+    });
+
+    // ... (Mantenha aqui os event listeners de 'focus' e 'blur' para estilos de input, se existirem)
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipe - Nexus Creative</title>
+    <link rel="stylesheet" href="Equipe.css"> 
+    <link rel="shortcut icon" href="Logo/Nexus Creative.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Logo Nexus Creative" class="logo-desktop" width="200" height="150">
+
+        <nav class="nav-desktop" aria-label="Navegação Principal">
+            <ul>
+                <li><a href="Index.html">Início</a></li>
+                <li><a href="Equipe.html" class="active">Equipe</a></li>
+                <li><a href="divulgue.html">Divulgue</a></li>
+                <li><a href="Principal.html">Página Principal</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-acoes">
+           <div class="auth-actions desktop-acoes">
+        </div>
+            
+            <button id="toggle-tema" aria-label="Alternar Tema">🌙</button>
+
+            <button id="toggle-menu" aria-label="Abrir Menu">☰</button>
+        </div>
+    </header>
+
+
+    <ul id="mobile-menu" class="nav-mobile">
+    <li class="mobile-auth-item" id="mobileAuthItem"><a href="Index.html">Início</a></li>
+    <li class="mobile-auth-item" id="mobileAuthItem"><a href="Equipe.html" class="active">Equipe</a></li>
+    <li class="mobile-auth-item" id="mobileAuthItem"><a href="divulgue.html">Divulgue</a></li>
+    <li class="mobile-auth-item" id="mobileAuthItem"><a href="Principal.html">Página Principal</a></li>
+    
+    </ul>
+    
+    <main class="team-section">
+        <h1 class="titulo">Nossa Equipe</h1>
+        
+        <div class="silhouettes">
+            <img src="Logo/60ffcd9c-d65b-4d8c-a897-1e9e14b72f73.png" alt="Silhueta da equipe" >
+        </div>
+
+        <div class="team-info">
+            <div class="person">
+                <h2>Danillo Thiago</h2>
+                <p>Gerente de Projeto</p>
+            </div>
+            <div class="person">
+                <h2>Yuri Bispo</h2>
+                <p>Desenvolvedor Front-End</p>
+                
+            </div>
+            <div class="person">
+                <h2>Lucas Vírginio</h2>
+                <p>Testador</p>
+            </div>
+            <div class="person">
+                <h2>Jefferson Rikelmy</h2>
+                <p>Analista de Requisitos</p>
+            </div>
+        </div>
+    </main>
+
+      <footer>
+        <div class="footer-contato">
+            <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Nexus Crative" width="250px" height="200px">
+        </div>
+
+        <p>&copy; <strong>2025 NexusCreative - Todos os direitos Reservados</strong></p>
+        
+    </footer>
+    <script>
+    const botaoTema = document.getElementById("toggle-tema");
+
+    // Aplica o tema salvo no navegador
+    if (localStorage.getItem("tema") === "light") {
+        document.body.classList.add("light");
+        botaoTema.textContent = "☀️";
+    }
+
+    botaoTema.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+
+        if (document.body.classList.contains("light")) {
+            botaoTema.textContent = "☀️";
+            localStorage.setItem("tema", "light");
+        } else {
+            botaoTema.textContent = "🌙";
+            localStorage.setItem("tema", "dark");
+        }
+    });
+
+    // SCRIPT MENU HAMBURGUER
+    const botaoMenu = document.getElementById("toggle-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+    
+    botaoMenu.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+        
+        // Altera o ícone do hamburguer para 'X'
+        botaoMenu.textContent = mobileMenu.classList.contains("active") ? "✕" : "☰";
+    });
+
+    // Fecha o menu ao redimensionar (volta para desktop)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024) {
+            mobileMenu.classList.remove('active');
+            botaoMenu.textContent = '☰';
+        }
+    });
+</script>
+
+<script>
+    // Função para atualizar o cabeçalho e os links
+    function updateHeaderAuth() {
+        const authContainer = document.querySelector('.auth-actions');
+        const isLogged = localStorage.getItem('usuarioLogado') === 'true';
+
+        if (authContainer) {
+            if (isLogged) {
+                // Estado LOGADO: Exibe botão Sair
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="#" id="logoutBtn">Sair</a>
+                    </div>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('usuarioLogado');
+                    localStorage.removeItem('usuarioEmail');
+                    window.location.reload(); // Recarrega para atualizar o estado
+                });
+            } else {
+                // Estado DESLOGADO: Exibe Entrar e Cadastre-se
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="Entrar.html">Entrar</a>
+                    </div>
+                    <div class="Cadastro desktop-acoes">
+                        <a href="Cadastro.html">Cadastre-se</a>
+                    </div>
+                `;
+            }
+        }
+        
+        // Trata o link "Divulgue" na navegação
+        const divulgueLink = document.querySelector('.nav-desktop a[href="divulgue.html"]');
+        if (divulgueLink) {
+             // Redireciona para o painel se logado, ou para o login se deslogado
+             divulgueLink.href = isLogged ? 'Propagandas.html' : 'Entrar.html';
+        }
+    }
+    
+    // Chama a função ao carregar a página
+    updateHeaderAuth();
+
+    // ... (Mantenha o restante do seu código JavaScript, como o script de tema e menu)
+</script>
+</body>
+</html>

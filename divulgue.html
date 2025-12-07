@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divulgue - Nexus Creative</title>
+    <link rel="stylesheet" href="divulgue.css"> <link rel="shortcut icon" href="Logo/Nexus Creative.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Logo Nexus Creative" class="logo-desktop" width="200" height="150">
+
+        <nav class="nav-desktop" aria-label="Navegação Principal">
+            <ul>
+                <li><a href="Index.html">Início</a></li>
+                <li><a href="Equipe.html">Equipe</a></li>
+                <li><a href="divulgue.html" class="active">Divulgue</a></li> <li><a href="Principal.html">Página Principal</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-acoes">
+          <div class="auth-actions desktop-acoes"></div>
+            
+            <button id="toggle-tema" aria-label="Alternar Tema">🌙</button>
+
+            <button id="toggle-menu" aria-label="Abrir Menu">☰</button>
+        </div>
+    </header>
+
+    <div id="mobile-menu">
+        <nav aria-label="Navegação Secundária">
+            <ul>
+                <li><a href="Index.html">Início</a></li>
+                <li><a href="Equipe.html">Equipe</a></li>
+                <li><a href="divulgue.html" class="active">Divulgue</a></li>
+                <li><a href="Principal.html">Página Principal</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-botoes">
+             <div class="Entrar mobile-entrar">
+                 <a href="Entrar.html">Entrar</a>
+             </div>
+             <div class="Cadastro mobile-cadastro">
+                 <a href="Cadastro.html">Cadastre-se</a>
+             </div>
+        </div>
+    </div>
+    
+    <main class="divulgue">
+        <section class="intro">
+            <h1>Divulgue com a <span>Nexus Creative!</span></h1>
+            <p>Transforme sua marca em destaque! Aqui você cria, gerencia e acompanha suas campanhas de forma simples e eficiente.</p>
+            <img src="Logo/Logo Nexus Criativo em Ciano.png" alt="Logo Nexus Creative">
+        </section>
+
+        <section class="etapas">
+            <h2>Como divulgar?</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>1️⃣ Cadastre-se</h3>
+                    <p>Crie sua conta gratuitamente e acesse o painel de anúncios.</p>
+                </div>
+                <div class="card">
+                    <h3>2️⃣ Crie seu anúncio</h3>
+                    <p>Escolha imagens, textos e público-alvo de forma intuitiva.</p>
+                </div>
+                <div class="card">
+                    <h3>3️⃣ Alcance seu público</h3>
+                    <p>Veja seu anúncio sendo exibido e acompanhe os resultados em tempo real.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="vantagens">
+            <h2>Por que escolher a Nexus Creative?</h2>
+            <ul>
+                <li>📊 Painel de desempenho inteligente</li>
+                <li>🎯 Segmentação de público avançada</li>
+                <li>💬 Comunicação direta com consumidores</li>
+                <li>💡 Estratégias personalizadas de marketing</li>
+            </ul>
+        </section>
+
+        <section class="cta">
+            <h2>Comece agora mesmo!</h2>
+            <a href="Propagandas.html" class="btn-divulgue">Quero divulgar</a>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="footer-contato">
+            <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Nexus Creative" width="250px" height="200px">
+        </div>
+        <p>&copy; <strong>2025 NexusCreative - Todos os direitos Reservados</strong></p>
+    </footer>
+
+    
+<script>
+    const botaoTema = document.getElementById("toggle-tema");
+
+    if (localStorage.getItem("tema") === "light") {
+        document.body.classList.add("light");
+        botaoTema.textContent = "☀️";
+    }
+
+    botaoTema.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+
+        if (document.body.classList.contains("light")) {
+            botaoTema.textContent = "☀️";
+            localStorage.setItem("tema", "light");
+        } else {
+            botaoTema.textContent = "🌙";
+            localStorage.setItem("tema", "dark");
+        }
+    });
+
+    // SCRIPT MENU HAMBURGUER
+    const botaoMenu = document.getElementById("toggle-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+    
+    botaoMenu.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+        botaoMenu.textContent = mobileMenu.classList.contains("active") ? "✕" : "☰";
+    });
+
+    // Fecha o menu ao redimensionar (volta para desktop)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024) {
+            mobileMenu.classList.remove('active');
+            botaoMenu.textContent = '☰';
+        }
+    });
+</script>
+
+<script>
+    // Função para atualizar o cabeçalho e os links
+    function updateHeaderAuth() {
+        const authContainer = document.querySelector('.auth-actions');
+        const isLogged = localStorage.getItem('usuarioLogado') === 'true';
+
+        if (authContainer) {
+            if (isLogged) {
+                // Estado LOGADO: Exibe botão Sair
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="#" id="logoutBtn">Sair</a>
+                    </div>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('usuarioLogado');
+                    localStorage.removeItem('usuarioEmail');
+                    window.location.reload(); // Recarrega para atualizar o estado
+                });
+            } else {
+                // Estado DESLOGADO: Exibe Entrar e Cadastre-se
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="Entrar.html">Entrar</a>
+                    </div>
+                    <div class="Cadastro desktop-acoes">
+                        <a href="Cadastro.html">Cadastre-se</a>
+                    </div>
+                `;
+            }
+        }
+        
+        // Trata o link "Divulgue" na navegação
+        const divulgueLink = document.querySelector('.nav-desktop a[href="divulgue.html"]');
+        if (divulgueLink) {
+             // Redireciona para o painel se logado, ou para o login se deslogado
+             divulgueLink.href = isLogged ? 'Propagandas.html' : 'Entrar.html';
+        }
+    }
+    
+    // Chama a função ao carregar a página
+    updateHeaderAuth();
+
+    // ... (Mantenha o restante do seu código JavaScript, como o script de tema e menu)
+</script>
+</body>
+</html>

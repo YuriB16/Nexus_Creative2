@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início - Nexus Creative</title>
+    <link rel="stylesheet" href="Index.css">
+    <link rel="shortcut icon" href="Logo/Nexus Creative.png" type="image/x-icon" widht="100px">
+</head>
+<body>
+
+<audio autoplay loop>
+  <source src="caminho/para/sua/musica.mp3" type="audio/mpeg">
+  <source src="caminho/para/sua/musica.ogg" type="audio/ogg">
+  Seu navegador não suporta áudio HTML5.
+</audio>
+
+    <header>
+        <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Logo Nexus Creative" class="logo-desktop" width="200" height="150">
+
+        <nav class="nav-desktop" aria-label="Navegação Principal">
+            <ul>
+                <li><a href="Index.html" class="active">Início</a></li>
+                <li><a href="Equipe.html">Equipe</a></li>
+                <li><a href="divulgue.html">Divulgue</a></li>
+                <li><a href="Principal.html">Página Principal</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-acoes">
+          <div class="auth-actions desktop-acoes"></div>
+            
+            <button id="toggle-tema" aria-label="Alternar Tema">🌙</button>
+
+            <button id="toggle-menu" aria-label="Abrir Menu">☰</button>
+        </div>
+    </header>
+
+    <div id="mobile-menu">
+        <nav aria-label="Navegação Secundária">
+            <ul>
+                <li><a href="Index.html">Início</a></li>
+                <li><a href="Equipe.html">Equipe</a></li>
+                <li><a href="divulgue.html">Divulgue</a></li>
+                <li><a href="Principal.html">Página Principal</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-botoes">
+             <div class="Entrar mobile-entrar">
+                <a href="Entrar.html">Entrar</a>
+            </div>
+            <div class="Cadastro mobile-cadastro">
+                <a href="Cadastro.html">Cadastre-se</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="Bem-Vindo">
+      <div class="Frase">
+        <h1 id="H1A">BEM VINDO</h1>
+       <h1 id="H1B">AO SEU SITE DE</h1>
+       <h1 id="H1C">DIVULGAÇÃO DE<div id="Pr"> PROPAGANDAS!</div></h1>
+    </div>
+      </div>
+
+    <div class="introducao">
+        <h1>O QUE É A NEXUS CREATIVE?</h1>
+        <div class="texto_Im1">
+            <p>
+                A Nexus Creative é uma agência especializada em divulgação de propagandas, focada em conectar marcas ao seu público por meio de estratégias criativas, conteúdo impactante e soluções personalizadas que elevam a visibilidade e o valor das empresas no mercado. <br>O portal será uma ferramenta de marketing digital acessível, permitindo que anunciantes promovam suas marcas e consumidores encontrem anúncios de forma simples e atrativa.
+            </p>
+            <img src="Logo/Logo Nexus Criativo em Ciano.png" alt="Imagem1" width="700px">
+        </div>
+    </div>
+
+    <div class="elementos">
+        <div class="elementos1">
+
+        </div>
+    </div>
+
+    <div class="porque">
+        <div class="CD">
+            <div class="consumidor">
+                <h1>CONSUMIDOR</h1>
+                <ul>
+                    <li>🛍️ Sistema de busca e filtros</li>
+                    <li>⭐ avaliações e comentários</li>
+                    <li>❤️ Lista de favoritos</li>
+                    <li>🗂️ Categorias e seções organizadas</li>
+                </ul>
+            </div>
+
+              <div class="anuciante">
+                <h1>ANUCIANTE</h1>
+                <ul>
+                    <li>📨 Sistema de mensagens com consumidores</li>
+                    <li>📍 Localização e mapa de atuação</li>
+                    <li>🎯 Segmentação de público-alvo</li>
+                    <li>🖼️ Ferramenta de criação de anúncios</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-contato">
+            <img src="Logo/Logotipo Geométrico em Preto e Branco.png" alt="Nexus Crative" width="250px" height="200px">
+        </div>
+
+        <p>&copy; <strong>2025 NexusCreative - Todos os direitos Reservados</strong></p>
+        
+    </footer>
+<script>
+    const botaoTema = document.getElementById("toggle-tema");
+
+    // Aplica o tema salvo no navegador
+    if (localStorage.getItem("tema") === "light") {
+        document.body.classList.add("light");
+        botaoTema.textContent = "☀️";
+    }
+
+    botaoTema.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+
+        if (document.body.classList.contains("light")) {
+            botaoTema.textContent = "☀️";
+            localStorage.setItem("tema", "light");
+        } else {
+            botaoTema.textContent = "🌙";
+            localStorage.setItem("tema", "dark");
+        }
+    });
+
+    // NOVO: SCRIPT MENU HAMBURGUER
+    const botaoMenu = document.getElementById("toggle-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+    
+    botaoMenu.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+        
+        // Altera o ícone do hamburguer para 'X'
+        botaoMenu.textContent = mobileMenu.classList.contains("active") ? "✕" : "☰";
+    });
+
+    // Fecha o menu ao redimensionar (volta para desktop)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024) {
+            mobileMenu.classList.remove('active');
+            botaoMenu.textContent = '☰';
+        }
+    });
+</script>
+<script>
+    // Função para atualizar o cabeçalho e os links
+    function updateHeaderAuth() {
+        const authContainer = document.querySelector('.auth-actions');
+        const isLogged = localStorage.getItem('usuarioLogado') === 'true';
+
+        if (authContainer) {
+            if (isLogged) {
+                // Estado LOGADO: Exibe botão Sair
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="#" id="logoutBtn">Sair</a>
+                    </div>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('usuarioLogado');
+                    localStorage.removeItem('usuarioEmail');
+                    window.location.reload(); // Recarrega para atualizar o estado
+                });
+            } else {
+                // Estado DESLOGADO: Exibe Entrar e Cadastre-se
+                authContainer.innerHTML = `
+                    <div class="Entrar desktop-acoes">
+                        <a href="Entrar.html">Entrar</a>
+                    </div>
+                    <div class="Cadastro desktop-acoes">
+                        <a href="Cadastro.html">Cadastre-se</a>
+                    </div>
+                `;
+            }
+        }
+        
+        // Trata o link "Divulgue" na navegação
+        const divulgueLink = document.querySelector('.nav-desktop a[href="divulgue.html"]');
+        if (divulgueLink) {
+             // Redireciona para o painel se logado, ou para o login se deslogado
+             divulgueLink.href = isLogged ? 'Propagandas.html' : 'Entrar.html';
+        }
+    }
+    
+    // Chama a função ao carregar a página
+    updateHeaderAuth();
+
+    // ... (Mantenha o restante do seu código JavaScript, como o script de tema e menu)
+</script>
+    
+</body>
+</html>

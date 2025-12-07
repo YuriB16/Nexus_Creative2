@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar - Nexus Creative</title>
+    <link rel="stylesheet" href="Entrar.css">
+    <link rel="shortcut icon" href="Logo/Nexus Creative.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Fundo animado -->
+    <canvas id="particles"></canvas>
+
+    <div class="container">
+        <div class="login-card">
+            <img src="Logo/Nexus Creative.png" alt="Logo Nexus Creative" class="logo">
+            <h2>Bem-vindo de volta!</h2>
+            <p>Entre para continuar explorando as melhores propagandas.</p>
+
+            <form id="formLogin">
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <p id="erroLogin" class="erro-msg"></p>
+
+                <button type="submit" class="btn-entrar">Entrar</button>
+
+                <div class="extra">
+                    <a href="#">Esqueceu a senha?</a>
+                    <p>Não tem uma conta? <a href="Cadastro.html">Cadastre-se</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alerta de sucesso -->
+    <div id="alertaSucesso" class="alerta-sucesso">
+        <h3>✅ Login bem-sucedido!</h3>
+        <p>Bem-vindo de volta à Nexus Creative!</p>
+    </div>
+
+    <script src="particles.js"></script>
+<script src="particles.js"></script>
+<script>
+    // ===========================================
+    // FUNÇÕES DE GERENCIAMENTO DE USUÁRIOS
+    // ===========================================
+    function getUsers() {
+        const usersJSON = localStorage.getItem('users');
+        return usersJSON ? JSON.parse(usersJSON) : [];
+    }
+
+    function findUser(email, senha) {
+        const users = getUsers();
+        // Verifica se o email E a senha coincidem
+        return users.find(user => user.email === email && user.senha === senha);
+    }
+
+    // ===========================================
+    // LÓGICA DO LOGIN
+    // ===========================================
+    const formLogin = document.getElementById('formLogin');
+    const emailInput = document.getElementById('email');
+    const senhaInput = document.getElementById('senha');
+    const erroLogin = document.getElementById('erroLogin');
+    const alertaSucesso = document.getElementById('alertaSucesso');
+    
+    formLogin.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const emailVal = emailInput.value;
+        const senhaVal = senhaInput.value;
+        
+        // 1. Limpa erros
+        erroLogin.style.display = 'none';
+        senhaInput.classList.remove('erro');
+        emailInput.classList.remove('erro');
+
+        // 2. Tenta encontrar o usuário
+        const usuario = findUser(emailVal, senhaVal);
+
+        if (usuario) {
+            // 3. Login bem-sucedido
+            alertaSucesso.classList.add('ativo');
+            
+            // Salva sessão do usuário
+            localStorage.setItem("usuarioLogado", "true");
+            localStorage.setItem("usuarioEmail", usuario.email);
+
+
+            setTimeout(() => {
+                alertaSucesso.classList.remove('ativo');
+                formLogin.reset();
+                // Redireciona para o painel de propagandas
+                window.location.href = "Propagandas.html"; 
+            }, 2500);
+        } else {
+            // 4. Falha no login
+            erroLogin.textContent = "❌ E-mail ou senha incorretos!";
+            erroLogin.style.display = 'block';
+            senhaInput.classList.add('erro');
+            emailInput.classList.add('erro');
+        }
+    });
+
+    // ... (Mantenha aqui os event listeners de 'focus' e 'blur' para estilos de input, se existirem)
+</script>
+</body>
+</html>

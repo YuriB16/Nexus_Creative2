@@ -1,0 +1,702 @@
+/* ========================================= */
+/* VARIÁVEIS DE TEMA (Padronizadas)               */
+/* ========================================= */
+
+:root {
+    /* Tema Padrão: ESCURO */
+    --accent: #00AAD9;
+    --bg: #111111;
+    --header-bg: #000000;
+    --card: #181818; 
+    --text: #ffffff;
+    --muted: #cfcfcf;
+    --shadow-menu: rgba(0, 0, 0, 0.8);
+    --border-cat: rgba(0, 170, 217, 0.12);
+}
+
+/* Tema CLARO */
+body.light {
+    --accent: #0077b6; 
+    --bg: #f5f5f5;
+    --header-bg: #ffffff;
+    --card: #ffffff;
+    --text: #0a0a0a; 
+    --muted: #555555; 
+    --shadow-menu: rgba(0, 0, 0, 0.3);
+    --border-cat: rgba(0, 119, 182, 0.25);
+}
+
+/* ========================================= */
+/* ANIMAÇÕES                                 */
+/* ========================================= */
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-80px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ========================================= */
+/* GERAL                                     */
+/* ========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Tema Claro - Links */
+body.light a {
+    color: var(--accent); /* Para links fora do header/menu */
+}
+
+/* ========================================= */
+/* CABEÇALHO                                 */
+/* ========================================= */
+
+header {
+    background-color: var(--header-bg); /* Usando variável de tema */
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribui o espaço */
+    animation: slideDown 1s ease-out;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 20px;
+}
+
+header img {
+    width: 200px;
+    height: 150px;
+    /* margin-right: 400px removido */
+}
+
+/* Troca de logo no tema claro */
+body.light header img {
+    content: url("Logo/Logo Nexus Criativo em Ciano.png");
+}
+
+/* Navegação Desktop */
+.nav-desktop ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    font-size: 19px;
+}
+
+.nav-desktop ul li {
+    margin-right: 20px;
+}
+
+.nav-desktop ul li a {
+    color: var(--text);
+    position: relative;
+}
+
+.nav-desktop ul li a:hover,
+.nav-desktop ul li a.active {
+    color: var(--accent);
+}
+
+.nav-desktop ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-desktop ul li a:hover::after,
+.nav-desktop ul li a.active::after {
+    width: 100%;
+}
+
+/* Agrupamento das ações de login/cadastro e tema */
+.header-acoes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ========================================= */
+/* BOTÕES HEADER (Entrar / Cadastre-se)      */
+/* ========================================= */
+
+.Entrar, .Cadastro {
+    border: 1px var(--accent) solid;
+    border-radius: 20px;
+    width: 120px;
+    text-align: center;
+    height: 40px;
+    font-size: 17px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+}
+
+.Entrar a, .Cadastro a {
+    display: block; 
+    line-height: 40px;
+    text-decoration: none;
+}
+
+/* Estilo Padrão - Dark Mode */
+.Entrar a {
+    color: var(--accent);
+}
+.Cadastro {
+    background-color: var(--accent);
+}
+.Cadastro a {
+    color: white;
+}
+
+.Entrar:hover {
+    background-color: var(--accent);
+}
+.Entrar:hover a {
+    color: white; 
+}
+.Cadastro:hover {
+    background-color: var(--card); /* Inverte para o fundo do card */
+}
+.Cadastro:hover a {
+    color: var(--accent);
+}
+
+/* Efeito de Hover/Ativo Comum */
+.Entrar:hover, .Cadastro:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 170, 217, 0.4);
+}
+
+/* Estilos para o Tema Claro - Botões */
+body.light .Entrar {
+    border-color: var(--accent);
+}
+body.light .Entrar a {
+    color: var(--accent);
+}
+body.light .Entrar:hover {
+    background-color: var(--accent);
+}
+body.light .Entrar:hover a {
+    color: white;
+}
+
+body.light .Cadastro {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+body.light .Cadastro a {
+    color: white;
+}
+body.light .Cadastro:hover {
+    background-color: var(--card);
+}
+body.light .Cadastro:hover a {
+    color: var(--accent);
+}
+
+/* ========================================= */
+/* BOTÃO MODO CLARO / ESCURO                 */
+/* ========================================= */
+
+#toggle-tema {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .3s ease;
+    flex-shrink: 0; 
+}
+
+#toggle-tema:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+
+/* ========================================= */
+/* MENU HAMBURGUER (MOBILE)                  */
+/* ========================================= */
+
+/* Botão Hamburguer no Header (Visível apenas no mobile) */
+#toggle-menu {
+    display: none; /* Escondido por padrão (Desktop-first) */
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 30px;
+    cursor: pointer;
+    padding: 5px 10px;
+    flex-shrink: 0;
+}
+
+/* Container do Menu Mobile (Off-Canvas) */
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 75%; 
+    max-width: 300px;
+    height: 100%;
+    background: var(--header-bg);
+    box-shadow: -4px 0 15px var(--shadow-menu);
+    z-index: 2000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%); /* Esconde para a direita */
+    visibility: hidden; 
+    transition: transform 0.3s ease, visibility 0.3s ease;
+}
+
+#mobile-menu.active {
+    transform: translateX(0); /* Traz para a tela */
+    visibility: visible;
+}
+
+#mobile-menu nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#mobile-menu nav ul li a {
+    display: block;
+    padding: 15px 0;
+    text-decoration: none;
+    color: var(--text);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+#mobile-menu nav ul li a:hover {
+    background: rgba(0, 170, 217, 0.1);
+}
+
+/* Botões de Ação dentro do Menu Mobile */
+.mobile-botoes {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mobile-botoes .Entrar, .mobile-botoes .Cadastro {
+    width: 100%;
+    margin: 0; 
+}
+
+.mobile-botoes .Entrar a, .mobile-botoes .Cadastro a {
+    line-height: 40px;
+}
+
+/* ========================================= */
+/* BEM-VINDO                                 */
+/* ========================================= */
+
+.Bem-Vindo {
+    /* Adicionado overlay para melhor legibilidade */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(Logo/image.png);
+    width: 100%;
+    height: 700px;
+    color: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; /* Ajustado para cobrir a área */
+    text-align: center;
+    animation: fadeIn 1.5s ease-in;
+    margin-top: 150px; /* Mais margem para acomodar o header fixo */
+}
+
+.Frase {
+    padding-top: 100px;
+    animation: fadeUp 1.5s ease-out;
+}
+
+#H1A {
+    font-size: 100px;
+    margin-bottom: 0;
+}
+
+#H1B {
+    font-size: 75px;
+    margin-top: -30px;
+    margin-bottom: 0;
+}
+
+#H1C {
+    display: inline-flex;
+    margin-top: -10px;
+    font-size: 35px;
+    align-items: flex-end; /* Alinha a base dos textos */
+    justify-content: center;
+}
+
+#Pr {
+    color: var(--accent);
+    margin-left: 10px;
+}
+
+/* ========================================= */
+/* INTRODUÇÃO                                */
+/* ========================================= */
+
+.introducao {
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    animation: fadeUp 1.5s ease-out;
+}
+
+.introducao h1 {
+    color: var(--accent);
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.texto_Im1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.texto_Im1 p {
+    flex: 1;
+    max-width: 600px;
+    font-size: 20px;
+    line-height: 1.5;
+    margin-right: 50px; /* Ajuste o espaçamento */
+}
+
+.texto_Im1 img {
+    width: 400px;
+    height: auto;
+    margin-top: -100px; 
+    margin-left: 0;
+    animation: float 4s ease-in-out infinite;
+}
+
+
+/* ========================================= */
+/* CONSUMIDOR / ANUNCIANTE                   */
+/* ========================================= */
+
+.porque {
+    background-image: url(Logo/Fundo1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 80px 20px;
+    animation: fadeIn 2s ease-in;
+}
+
+body.light .porque{
+    background-image: none;
+    background-color: var(--bg);
+}
+
+.CD {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.consumidor, .anuciante {
+    background-color: var(--card);
+    border: var(--accent) 2px solid;
+    border-radius: 50px;
+    width: 500px;
+    height: 400px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.consumidor:hover, .anuciante:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 170, 217, 0.4);
+}
+
+.consumidor h1, .anuciante h1 {
+    color: var(--accent);
+    margin-bottom: 20px;
+}
+
+.consumidor ul, .anuciante ul {
+    text-align: left;
+    font-size: 18px;
+    list-style: none;
+    margin-top: 30px;
+    padding: 0 40px;
+}
+
+.consumidor ul li, .anuciante ul li {
+    margin-bottom: 15px;
+}
+
+/* Animações sequenciais no dark mode */
+.consumidor {
+    animation: fadeUp 1.5s ease-out;
+}
+.anuciante {
+    animation: fadeUp 1.5s ease-out 0.3s backwards;
+}
+
+
+/* ========================================= */
+/* FOOTER                                    */
+/* ========================================= */
+
+footer {
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in;
+}
+
+footer img {
+    margin-right: 50px;
+}
+
+footer p {
+    font-size: 20px;
+    color: white;
+    margin-left: 0;
+}
+
+
+/* ========================================= */
+/* MEDIA QUERIES (Responsividade)             */
+/* ========================================= */
+
+@media (max-width: 1024px) {
+    
+    /* Esconde elementos de desktop */
+    .nav-desktop, .desktop-acoes {
+        display: none;
+    }
+
+    /* Mostra o menu hamburguer */
+    #toggle-menu {
+        display: block;
+    }
+
+    header img {
+        width: 150px;
+        height: auto;
+    }
+    
+    .Bem-Vindo {
+        margin-top: 100px;
+        height: 600px;
+    }
+    
+    /* Introdução */
+    .introducao {
+        margin: 50px auto;
+    }
+    .introducao h1 {
+        font-size: 40px;
+        text-align: center;
+    }
+    .texto_Im1 {
+        flex-direction: column;
+        align-items: center;
+    }
+    .texto_Im1 p {
+        margin-right: 0;
+        max-width: 90%;
+        text-align: center;
+        font-size: 18px;
+        order: 2; /* Coloca o texto após a imagem no mobile */
+    }
+    .texto_Im1 img {
+        width: 60%;
+        height: auto;
+        margin-top: 20px;
+        order: 1; /* Coloca a imagem antes do texto no mobile */
+    }
+
+    /* Cards Consumidor/Anunciante */
+    .CD {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .consumidor, .anuciante {
+        width: 90%;
+        max-width: 450px;
+        margin: 0;
+        height: auto;
+    }
+    .consumidor ul, .anuciante ul {
+        padding: 0 30px;
+    }
+    
+    /* Footer */
+    footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+    footer img {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    footer p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 8px 15px;
+    }
+    
+    header img {
+        width: 120px;
+    }
+    
+    /* Títulos da Seção Bem-Vindo */
+    .Frase {
+        padding-top: 50px;
+    }
+    #H1A {
+        font-size: 50px;
+    }
+    #H1B {
+        font-size: 40px;
+        margin-top: -10px;
+    }
+    #H1C {
+        font-size: 20px;
+        margin-top: 0;
+    }
+    #Pr {
+        font-size: 22px;
+        margin-left: 5px;
+    }
+    
+    .Bem-Vindo {
+        height: 450px;
+    }
+
+    .introducao h1 {
+        font-size: 30px;
+    }
+    .texto_Im1 p {
+        font-size: 16px;
+    }
+    .texto_Im1 img {
+        width: 80%;
+    }
+    
+    .consumidor h1, .anuciante h1 {
+        font-size: 28px;
+    }
+    .consumidor ul, .anuciante ul {
+        font-size: 16px;
+    }
+}
+
+/* Estilo do menu no tema claro */
+body.light .nav-desktop ul li a {
+    color: #0077b6;
+}
+
+body.light .nav-desktop ul li a:hover,
+body.light .nav-desktop ul li a.active {
+    color: #0077b6; 
+}
+
+body.light .nav-desktop ul li a::after {
+    background-color: #00AAD9; 
+}
+
+header .header-acoes {
+    display: flex;
+    align-items: center; /* Alinha verticalmente todos os itens (auth, tema, menu) */
+    gap: 15px; /* Espaço entre os elementos */
+}
+
+/* Novo contêiner para Entrar/Cadastro/Sair */
+.auth-actions {
+    display: flex;
+    /* Adiciona o espaço entre o botão de entrar e o de cadastro (se houver) */
+    gap: 10px; 
+}
+
+/* Estilo dos links dentro de .auth-actions */
+.auth-actions a {
+    /* Mantenha o estilo dos links do header */
+    padding: 8px 15px; 
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: -10px;
+    text-decoration: none;
+    white-space: nowrap; /* Impede quebras de linha */
+}
+
+/* Estilo específico para o botão de Entrar/Sair */
+.auth-actions .Entrar a, 
+.auth-actions .Cadastro a {
+
+}
