@@ -404,6 +404,7 @@ body.light .Cadastro:hover a {
     font-size: 50px;
     text-align: center;
     margin-bottom: 40px;
+    text-aling: left;
 }
 
 .texto_Im1 {
@@ -698,5 +699,6 @@ header .header-acoes {
 /* Estilo específico para o botão de Entrar/Sair */
 .auth-actions .Entrar a, 
 .auth-actions .Cadastro a {
+
 
 }
