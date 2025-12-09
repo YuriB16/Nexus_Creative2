@@ -371,12 +371,18 @@ body.light .card-upload {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid var(--input-border);
-    background: var(--input-bg);
-    color: var(--text);
+
+    /* CORREÇÃO PARA CHROMIUM/OPERA GX */
+    background-color: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    color: var(--text) !important;
+
+    display: block;
+    min-height: 40px; /* evita campo "sumir" */
     resize: vertical;
     margin-bottom: 5px;
 }
+
 
 .card-upload input::placeholder,
 .card-upload textarea::placeholder {
