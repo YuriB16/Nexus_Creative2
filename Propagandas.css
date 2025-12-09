@@ -17,6 +17,14 @@
     /* Cor para Excluir */
 }
 
+textarea {
+    background-color: var(--input-bg) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--input-border) !important;
+    display: block;
+}
+
+
 /* Estilo do menu no tema claro */
 body.light .nav-desktop ul li a {
     color: #0077b6;
@@ -672,4 +680,5 @@ footer p {
         flex-direction: column;
     }
 }
+
 
