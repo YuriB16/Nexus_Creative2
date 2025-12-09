@@ -681,4 +681,13 @@ footer p {
     }
 }
 
+/* CORREÇÃO ESPECÍFICA PARA TEXTAREA SUMINDO NO OPERA GX */
+.card-upload textarea {
+    min-height: 120px !important; /* Altura garantida */
+    height: auto !important;
+    display: block;
+}
+
+
+
 
